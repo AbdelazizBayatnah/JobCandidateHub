@@ -16,9 +16,9 @@ namespace JobCandidateHub.Models
 
         public string? PhoneNumber { get; set; }
 
-        public DateTime AvailableForCallFrom { get; set; }
+        public string? AvailableForCallFrom { get; set; }
 
-        public DateTime AvailableFroCallTo { get; set; }
+        public string? AvailableFroCallTo { get; set; }
 
         public string? LinkedInProfileUrl { get; set; }
 

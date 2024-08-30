@@ -1,4 +1,5 @@
-﻿using JobCandidateHub.Models;
+﻿using JobCandidateHub.Managers;
+using JobCandidateHub.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobCandidateHub.Controllers
@@ -7,8 +8,12 @@ namespace JobCandidateHub.Controllers
     [ApiController]
     public class CandidateDetailsController : ControllerBase
     {
-        public CandidateDetailsController() { }
+        private readonly ICandidateDetailsManager _candidateDetailsManager;
 
+        public CandidateDetailsController(ICandidateDetailsManager candidateDetailsManager)
+        {
+            _candidateDetailsManager = candidateDetailsManager;
+        }
 
         /// <summary>
         ///  Post or Put Candidate Details
@@ -22,7 +27,9 @@ namespace JobCandidateHub.Controllers
         public async Task<ActionResult<CandidateDetails>> CreateCandidateDetails(
             [FromBody] CandidateDetails candidateDetailsModel)
         {
-            return Ok("");
+            var candidateDetails = await _candidateDetailsManager.CreateCandidateDetailsAsync(candidateDetailsModel);
+
+            return Ok(new { Message = "Candidate details has been created or Updated successfully.", CandidateDetails = candidateDetails });
         }
     }
 }
