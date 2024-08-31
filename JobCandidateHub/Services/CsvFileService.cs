@@ -1,8 +1,7 @@
-﻿using JobCandidateHub.Models;
-using System.Formats.Asn1;
-using System.Globalization;
-using CsvHelper;
+﻿using CsvHelper;
 using CsvHelper.Configuration;
+using JobCandidateHub.Models;
+using System.Globalization;
 
 namespace JobCandidateHub.Services
 {

@@ -22,6 +22,8 @@ namespace JobCandidateHub.Managers
             _csvFileService = csvFileService;
         }
 
+        #region Create
+
         public async Task<CandidateDetails?> CreateCandidateDetailsAsync(CandidateDetails candidateDetailsModel)
         {
             ValidateInputs(candidateDetailsModel.Email, candidateDetailsModel.LinkedInProfileUrl, candidateDetailsModel.GitHubProfileUrl);
@@ -44,6 +46,10 @@ namespace JobCandidateHub.Managers
             return candidateDetailsModel;
         }
 
+        #endregion
+
+        #region Update
+
         public async Task<CandidateDetails?> UpdateCandidateDetailsAsync(
             CandidateDetails existingCandidateDetailsModel,
             CandidateDetails updatedCandidateDetailsModel,
@@ -56,6 +62,10 @@ namespace JobCandidateHub.Managers
             //Here, we return the "existingCandidateDetailsModel" after we update its fields with the updatedCandidateDetailsModel
             return existingCandidateDetailsModel;
         }
+
+        #endregion
+
+        #region Helpers
 
         private static void ValidateInputs(string email, string? linkedInProfileUrl, string? gitHubProfileUrl)
         {
@@ -88,5 +98,7 @@ namespace JobCandidateHub.Managers
             existingCandidateDetailsModel.GitHubProfileUrl = updatedCandidateDetailsModel.GitHubProfileUrl;
             existingCandidateDetailsModel.FreeTextComment = updatedCandidateDetailsModel.FreeTextComment;
         }
+
+        #endregion
     }
 }

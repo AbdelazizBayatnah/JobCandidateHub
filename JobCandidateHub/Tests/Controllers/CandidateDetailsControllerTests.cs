@@ -4,9 +4,6 @@ using JobCandidateHub.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace JobCandidateHub.Tests.Controllers
 {
@@ -83,6 +80,5 @@ namespace JobCandidateHub.Tests.Controllers
         }
 
         #endregion
-
     }
 }

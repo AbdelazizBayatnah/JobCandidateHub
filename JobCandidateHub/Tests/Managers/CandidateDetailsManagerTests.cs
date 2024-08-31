@@ -1,7 +1,6 @@
 ﻿using JobCandidateHub.Managers;
 using JobCandidateHub.Models;
 using JobCandidateHub.Services;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -125,7 +124,5 @@ namespace JobCandidateHub.Tests.Managers
         }
 
         #endregion
-
-
     }
 }

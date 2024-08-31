@@ -27,7 +27,6 @@ namespace JobCandidateHub.Controllers
         public async Task<ActionResult<CandidateDetails>> CreateCandidateDetails(
             [FromBody] CandidateDetails candidateDetailsModel)
         {
-
             try
             {
                 var candidateDetails = await _candidateDetailsManager.CreateCandidateDetailsAsync(candidateDetailsModel);
