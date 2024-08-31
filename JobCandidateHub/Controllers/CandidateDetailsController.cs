@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobCandidateHub.Controllers
 {
-    [Route("api/{controller}")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CandidateDetailsController : ControllerBase
     {
@@ -27,9 +27,17 @@ namespace JobCandidateHub.Controllers
         public async Task<ActionResult<CandidateDetails>> CreateCandidateDetails(
             [FromBody] CandidateDetails candidateDetailsModel)
         {
-            var candidateDetails = await _candidateDetailsManager.CreateCandidateDetailsAsync(candidateDetailsModel);
 
-            return Ok(new { Message = "Candidate details has been created or Updated successfully.", CandidateDetails = candidateDetails });
+            try
+            {
+                var candidateDetails = await _candidateDetailsManager.CreateCandidateDetailsAsync(candidateDetailsModel);
+
+                return Ok(new { Message = "Candidate details has been created or Updated successfully.", CandidateDetails = candidateDetails });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

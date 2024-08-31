@@ -24,6 +24,8 @@ namespace JobCandidateHub.Managers
 
         public async Task<CandidateDetails?> CreateCandidateDetailsAsync(CandidateDetails candidateDetailsModel)
         {
+            ValidateInputs(candidateDetailsModel.Email, candidateDetailsModel.LinkedInProfileUrl, candidateDetailsModel.GitHubProfileUrl);
+
             var candidatesDetails = await _csvFileService.GetAllCandidateDetails();
 
             var existingCandidateDetails = candidatesDetails.FirstOrDefault(s => s.Email == candidateDetailsModel.Email);
@@ -39,7 +41,7 @@ namespace JobCandidateHub.Managers
 
             await _csvFileService.SaveCandidateDetails(candidatesDetails);
 
-            return candidatesDetails.Find(x => x.Email == candidateDetailsModel.Email);
+            return candidateDetailsModel;
         }
 
         public async Task<CandidateDetails?> UpdateCandidateDetailsAsync(
@@ -51,7 +53,28 @@ namespace JobCandidateHub.Managers
 
             await _csvFileService.SaveCandidateDetails(allCandidatesDetails);
 
-            return allCandidatesDetails.Find(x => x.Email == existingCandidateDetailsModel.Email);
+            //Here, we return the "existingCandidateDetailsModel" after we update its fields with the updatedCandidateDetailsModel
+            return existingCandidateDetailsModel;
+        }
+
+        private static void ValidateInputs(string email, string? linkedInProfileUrl, string? gitHubProfileUrl)
+        {
+            //This method has a simple conditions to validate the user inputs (email, and urls), this can be improved by creating a fluent validation service
+
+            if (!(email.Contains("@") && !email.StartsWith("@") && email.EndsWith(".com")))
+            {
+                throw new ArgumentException("Invalid email address");
+            }
+
+            if (linkedInProfileUrl != null && !linkedInProfileUrl.StartsWith("https://www.linkedin.com/in/", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("Invalid linkedIn profile url");
+            }
+
+            if (gitHubProfileUrl != null && !gitHubProfileUrl.StartsWith("https://github.com/", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("Invalid github profile url");
+            }
         }
 
         private static void MapUpdatedModelToExistingModel(CandidateDetails existingCandidateDetailsModel, CandidateDetails updatedCandidateDetailsModel)

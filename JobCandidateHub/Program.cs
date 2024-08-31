@@ -1,4 +1,5 @@
 using JobCandidateHub.Managers;
+using JobCandidateHub.Models;
 using JobCandidateHub.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,8 @@ builder.Services.AddSwaggerGen();
 var csvFilePath = builder.Configuration.GetValue<string>("CsvFilePath");
 
 builder.Services.AddScoped<ICsvFileService>(provider => new CsvFileService(Path.Combine(Directory.GetCurrentDirectory(), csvFilePath)));
-builder.Services.AddScoped<ICandidateDetailsManager, ICandidateDetailsManager>();
+builder.Services.AddScoped<ICandidateDetailsManager, CandidateDetailsManager>();
+
 
 var app = builder.Build();
 

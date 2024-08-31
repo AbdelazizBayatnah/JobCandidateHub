@@ -14,6 +14,7 @@ namespace JobCandidateHub.Models
         [Required]
         public string LastName { get; set; } = null!;
 
+        [Length(5,15)]
         public string? PhoneNumber { get; set; }
 
         public string? AvailableForCallFrom { get; set; }
